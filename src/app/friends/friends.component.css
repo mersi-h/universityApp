@@ -1,0 +1,23 @@
+.container{
+  max-height: 800px;
+  width: 100%;
+  min-width: 80%;
+  overflow-y: auto ;
+  place-content: center flex-start;
+  align-items: center;
+  align-content: flex-start;
+}
+mat-paginator{
+  width: 90%;
+  margin:0 auto;
+  bottom: 0;
+  position: absolute;
+  left:0;
+  right:0;
+}
+img{
+  border-radius: 100%;
+    width:150px;
+    height: 150px;
+    margin-left: 10px;
+}

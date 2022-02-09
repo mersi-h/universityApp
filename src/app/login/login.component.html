@@ -1,0 +1,97 @@
+<mat-tab-group class="main">
+  <mat-tab translate label="{{'Login' | translate}}">
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" (keydown.enter)="$event.preventDefault()">
+      <mat-card>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>Username</mat-label>
+              <input formControlName="username" autocomplete="new-username" matInput placeholder="Enter username">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>Password</mat-label>
+              <input formControlName="password" autocomplete="new-password" type="password" matInput
+                placeholder="Enter password">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>select-language</mat-label>
+              <select matNativeControl required (click)="selectLanguage($event.target.value)" >
+                <option value="en"  [selected]="drop_down_value == 'en'" translate>option-en</option>
+                <option value="al"  [selected]="drop_down_value == 'al'" translate>option-al</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <button type="submit" mat-button color="dark" translate>{{'Login' | translate}}</button>
+          </div>
+        </div>
+      </mat-card>
+
+    </form>
+  </mat-tab>
+  <mat-tab translate label="{{'Register' | translate}}">
+    <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)" (keydown.enter)="$event.preventDefault()">
+      <mat-card>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>First-Name</mat-label>
+              <input formControlName="firstName" autocomplete="new-firstName" matInput placeholder="Enter first name">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>Last-Name</mat-label>
+              <input formControlName="lastName" autocomplete="new-lastName" matInput placeholder="Enter last name">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>Email</mat-label>
+              <input formControlName="email" autocomplete="new-email" matInput placeholder="Enter email">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>Username</mat-label>
+              <input formControlName="username" autocomplete="new-username" matInput placeholder="Enter username">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="70">
+            <mat-form-field appearance="outline">
+              <mat-label translate>Password</mat-label>
+              <input formControlName="password" autocomplete="new-password" type="password" matInput
+                placeholder="Enter password">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <button type="submit" mat-button color="dark" translate>{{'Submit' | translate}}</button>
+          </div>
+        </div>
+      </mat-card>
+
+    </form>
+  </mat-tab>
+</mat-tab-group>

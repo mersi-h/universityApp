@@ -1,0 +1,28 @@
+mat-list-item span{
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  margin-left: 5px;
+  padding: 5px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.map {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+img{
+  width: 30px;
+  height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 100%;
+  background-color: black;
+  background-size:31px 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+::ng-deep mat-card{
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 40%), 0px 1px 1px 0px rgb(0 0 0 / 90%), 0px 1px 3px 0px rgb(0 0 0 / 62%);
+}

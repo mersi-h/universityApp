@@ -1,0 +1,66 @@
+<div fxLayout="column">
+    <div>
+        <mat-card id="profile-left">
+            <span style="position: absolute; float: left;">
+                <button color="dark" mat-button (click)="goBack()">
+                    <i class="fas fa-chevron-left mr-2"></i>
+                    {{'BACK' | translate}}
+                </button>
+            </span>
+            <mat-card id="profile-picture-noPhoto" *ngIf="noPhoto">
+                <input type="file" accept="image/*" id="photo" required [ngModel]="user?.profilePicture" name="image"
+                    style="display: none;">
+            </mat-card>
+            <mat-card id="profile-picture" *ngIf="!noPhoto">
+                <img src="{{user?.profilePicture}}">
+                <input type="file" accept="image/*" id="photo" required [ngModel]="user?.profilePicture" name="image"
+                    style="display: none;">
+            </mat-card>
+            <br>
+            <div *ngIf="!loggedUser?.friends.includes(user.username)" fxLayout="row" fxLayoutAlign="center center" style="padding: 0; margin: 0;">
+                <button *ngIf="!isSent" type="submit" color="dark" mat-button
+                    (click)="sendFriendRequest(user.id)">{{'Send' |
+                    translate}}</button>
+                <button *ngIf="isSent" type="submit" color="dark" mat-button disabled>{{'Sent' |
+                    translate}}</button>
+            </div>
+        </mat-card>
+
+        <mat-card id="profile-right">
+            <mat-card-title>{{'PERSONAL-DETAILS' | translate}}</mat-card-title><br>
+            <mat-list id="list-left">
+                <mat-list-item>{{'First-Name' | translate }}<span>{{user?.firstName}}</span> </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>{{'Last-Name' | translate }} <span>{{user?.lastName}}</span> </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>{{'Email' | translate }}<span>{{user?.email}}</span> </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>{{'User-Name' | translate}}<span>{{user?.username}}</span> </mat-list-item>
+            </mat-list>
+
+        </mat-card>
+    </div>
+    <div fxLayoutAlign="space-between center" style="padding: 0; margin-top: 50px;">
+        <div fxFlex="48">
+            <mat-card style="height: 300px; margin-left:30px ;">
+                <mat-card-header style="text-align: center; font-size: x-large; justify-content:center;">
+                    <b>{{'Friends' | translate}} </b></mat-card-header>
+                <div *ngIf="userFriends.length!=0" style="margin-top: 20px; overflow-y: auto;">
+                    <div fxFlex="row" fxLayoutAlign="start center" *ngFor="let friend of userFriends">
+                        <button mat-button *ngIf="friend.profilePicture!=null" (click)="viewFriendProfile(friend)"><img
+                                class="friend" src="{{friend.profilePicture}}">
+                            {{friend.username}}</button>
+                        <button mat-button *ngIf="friend.profilePicture==null" (click)="viewFriendProfile(friend)"><img
+                                class="friend" src="../../assets/220px-User_icon_2.svg.png">
+                            {{friend.username}}</button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div fxFlex="48">
+            <mat-card style="height: 300px; margin-right:30px ;">
+
+            </mat-card>
+        </div>
+    </div>
+</div>

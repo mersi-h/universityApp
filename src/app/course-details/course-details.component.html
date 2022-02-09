@@ -1,0 +1,102 @@
+<div fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-card fxFlex="40" style="width: 600px; height: 80vh; margin-left: 50px; margin-top:50px ;">
+        <div fxLayout="row">
+            <span fxFlex="20" >
+                <button color="dark" mat-button (click)="goBack()">
+                    <i class="fas fa-chevron-left mr-2"></i>
+                    {{'BACK' | translate}}
+                </button>
+            </span>
+            <mat-card-title fxFlex="60" style="text-align: center; margin-top: 20px;">{{course?.name | uppercase }}</mat-card-title>
+            <div fxFlex="20" fxLayoutAlign="center center" *ngIf="userCourses">
+                <button *ngIf="!userCourses.includes(course?.name)" 
+                style="font-size: large; text-align: center; font-size: larger;" 
+                mat-button  (click)="joinCourse(course.name)">
+                    {{'JOIN' | translate}}
+                </button>
+                <button *ngIf="userCourses.includes(course?.name)"
+            mat-icon-button color="warn" (click)="leaveCourseDialog(course.name,leaveCourseTemplate)">
+            {{'LEAVE' | translate}}
+            </button>
+            </div>
+        </div>
+        <mat-card-content style="margin-top: 50px;">
+            <div fxLayout="row wrap">
+                <mat-list>
+                    <mat-list-item>
+                        <b>{{'Description' | translate}}:</b>&nbsp; <span>{{course?.description}}</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                        <b>{{ 'University-Name' | translate}}:</b>&nbsp; <span>{{course?.universityName}}</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                        <b>{{'Date' | translate}}:</b>&nbsp; <span>{{course?.date | date:'short'}}</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                        <b>{{'Location' | translate}}:</b>&nbsp; <span>{{course?.location}}</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <div style="margin-top: 20px; overflow-y: auto;">
+                        <b style="text-align: center; font-size: larger; margin-left: 12px;">{{'Course-participants' | translate}}:</b>
+                        <mat-list-item *ngIf="course?.users">
+
+                            <div fxFlex="row" fxLayoutAlign="start center" *ngFor="let user of course.users">
+                                    <span *ngIf="user.profilePicture!=null"><img  src="{{user.profilePicture}}" >
+                                    {{user.username}}</span>
+                                    <span *ngIf="user.profilePicture==null"><img  src="../../assets/220px-User_icon_2.svg.png" >
+                                        {{user.username}}</span>
+                            </div>
+                        </mat-list-item>
+                    </div>
+                </mat-list>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div fxFlex="60">
+        <div fxLayout="column" fxLayoutAlign="space-between center" >
+            <div  id="mapid" style="width: 90%; height: 300px; position: sticky;  margin-top:20px ;">
+            </div>
+            <div fxFlex="60">
+                <mat-card style="width: 880px; height: 350px; margin-top:20px">
+                    <mat-card-title style="text-align: center; margin-top: 20px;">{{'Discussion' | translate}}</mat-card-title>
+                    <div *ngIf="course?.comments"style="height:180px ;overflow-x: hidden; overflow-y: auto;" fxLayout = "column" fxLayoutAlign="space-between none" fxLayoutGap="10px" >
+
+                      <div  fxFlex="80" *ngFor ="let comment of course.comments">
+                        <mat-card style ="width: 100%; ">
+                          <h6><span>{{'Created-By' | translate }} </span> {{comment.userId}}</h6>
+                          <p style="font-size: large;">{{comment.content}}</p>
+                        </mat-card>
+                      </div>
+
+                  </div>
+                  <br>
+                  <form style = "width: 100%; height:50px;padding-left:-10px;position:sticky;" [formGroup]="createCommentForm" (ngSubmit)="createComment(createCommentForm.value)" (keydown.enter)="$event.preventDefault()">
+                      <div fxLayout="row">
+                        <div fxFlex="80">
+                          <mat-form-field style="width: 100%;" appearance="outline">
+                            <mat-label>{{'Comment' | translate}}</mat-label>
+                            <textarea formControlName="commentContent"  autocomplete="content" matInput placeholder="Enter Comment content here"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex="20" fxLayoutAlign="center center">
+                            <button type="submit" style="color:black" mat-button color="dark">{{'Submit' | translate}}</button>
+                          </div>
+                      </div>
+                  </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--LEAVE COURSE TEMPLATE-->
+<ng-template #leaveCourseTemplate>
+    <mat-dialog-content style="font-size: 16px">Are you sure you want to leave this course?</mat-dialog-content>
+    <mat-dialog-actions style="justify-content: center">
+        <button color="warn" mat-button mat-dialog-close (click)="leaveCourse(courseName)" >Yes</button>
+        <button mat-button mat-dialog-close>No</button>
+    </mat-dialog-actions>
+</ng-template>

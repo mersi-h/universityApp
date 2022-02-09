@@ -1,0 +1,106 @@
+#profile-left{
+    float:left;
+    width:30%;
+    margin-left:30px;
+    margin-top: 40px;
+    height: 328px;
+}
+
+#profile-right{
+    float:right;
+    width:60%;
+    margin-top: 40px;
+    margin-right: 30px;
+    height: 40%;
+    
+}
+mat-card-title{
+    text-align: center;
+}
+
+#profile-picture-noPhoto{
+    border-radius: 100%;
+    width:200px;
+    height: 200px;
+    margin:0 auto;
+    background-image: url("../../../assets/220px-User_icon_2.svg.png");
+    background-size:210px 222px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#profile-picture{
+    border-radius: 100%;
+    width:200px;
+    height: 200px;
+    margin:0 auto;
+    padding:0;
+}
+
+#edit-profile-picture{
+    position: absolute;
+    float:right;
+    top:0;
+    right:-5px;
+}
+#edit-info{
+    align-items: center;
+    position: absolute;
+    left: 49%;
+    top: 60%;
+    font-size: 15px;
+}
+#list-left{
+    float: left;
+    width:50%;
+    margin-bottom: 50px;
+}
+#list-left mat-divider{
+    width:40%;
+    float: left;
+}
+#list-right{
+    float: right;
+    width:50%;
+    margin-bottom: 50px;
+}
+#list-right mat-divider{
+    width:40%;
+    left:50%;
+}
+.description-field{
+    width: 100%;
+    
+}
+.description-field-edit{
+    width: 70%;
+    top:-30px;
+}
+h2{
+    text-align: center;
+}
+h3{
+    width:100%;
+    text-align: justify;
+}
+img{
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+}
+mat-list-item span, mat-list-item input{
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 5px;
+    padding: 5px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.friend{
+    width: 30px;
+    height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 100%;
+}
+
+

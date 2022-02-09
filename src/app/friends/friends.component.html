@@ -1,0 +1,33 @@
+<div class="main" fxLayout="column" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxFlex="10" color="dark" fxLayoutAlign="space-around center">
+        <mat-form-field color="dark" appearance="outline" style="margin-top: 10px;">
+            <mat-label >Search</mat-label>
+            <input matInput (keyup.enter)="search($event.target.value)">
+        </mat-form-field>
+    </div>
+    <div class="container" fxLayout="row wrap">
+        <div *ngFor="let selectedUser of allUsers">
+            <mat-card *ngIf="selectedUser.id != currentUser.id" style="width: 200px; height: 300px; margin:10px">
+                <div>
+                    <img *ngIf="selectedUser.profilePicture!=null" src="{{selectedUser.profilePicture}}">
+                    <img *ngIf="selectedUser.profilePicture==null" src="../../assets/220px-User_icon_2.svg.png">
+                </div>
+                <div fxLayout="row"
+                    style="font-size: 20px; font-weight: 600; font-family: Proxima Nova; font-family: Proxima Nova; margin: 10px;">
+                    <div fxFlex="100" fxLayoutAlign="center center">{{selectedUser.username}}</div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" style="padding: 0; margin: 0;">
+                    <button *ngIf="!requestedUsers.includes(selectedUser.id)" type="submit" color="dark" mat-button (click)="sendFriendRequest(selectedUser.id)">{{'Send' |
+                        translate}}</button>
+                    <button *ngIf="requestedUsers.includes(selectedUser.id)" type="submit" color="dark" mat-button disabled>{{'Sent' |
+                            translate}}</button>
+                    <button type="submit" color="dark" mat-button (click)="viewFriendProfile(selectedUser)">{{'View-profile' |
+                        translate}}</button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<mat-paginator [pageSize]="size" [pageIndex]="page" [length]="length" [pageSizeOptions]="[1,5, 10, 20,50,100]"
+    (page)="handlePage($event)" showFirstLastButtons>
+</mat-paginator>

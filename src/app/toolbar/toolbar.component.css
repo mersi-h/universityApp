@@ -1,0 +1,7 @@
+button{
+    cursor: pointer;
+  }
+  ::ng-deep .mat-toolbar{
+    z-index: 998;
+    position: sticky
+  }

@@ -1,0 +1,78 @@
+<!-- <app-toolbar></app-toolbar> -->
+
+
+<div >
+  <button mat-icon-button color="primary" style="float: right;  margin-top: 50px; left:-350px;"><mat-icon style="font-size: xx-large;" (click)="reloadFeed()">refresh</mat-icon></button>
+  <div fxLayout="column" fxLayoutAlign="space-between center">
+    <form  [formGroup]="createPostForm" (ngSubmit)="createPost(createPostForm.value)" (keydown.enter)="$event.preventDefault()">
+      <mat-card style="width: 600px; margin-top: 50px;">
+        <mat-label>
+          {{'Create-New-Post-Here' | translate}}
+        </mat-label>
+        <div fxLayout="row">
+          <div fxFlex="90">
+            <mat-form-field style="width: 100%;" appearance="outline">
+              <mat-label>{{'Post-Content' | translate}}</mat-label>
+              <textarea formControlName="createPostContent"  autocomplete="content" matInput placeholder="Enter Post content here"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex="10" fxLayoutAlign="center center">
+            <button type="submit" mat-button color="dark">{{'Submit' | translate}}</button>
+          </div>
+        </div>
+      </mat-card>
+    </form>
+
+    <div fxLayout="column" fxFill fxLayoutAlign="space-between center"  *ngFor="let post of posts ; let i = index">
+      <div *ngIf="friends.includes(post.userId) || post.userId==currentUser.username" style = "width: 50%;">
+        <mat-card style="margin-top: 50px;">
+          <h6><span>{{'Created-By' | translate }}: </span>{{post.userId}}</h6>
+          <p style="font-size: large;">{{post.content}}</p>
+          <h6><span>{{'Created' |translate}}</span> {{post.created | date :'medium'}}</h6>
+          <div fxLayout="row">
+            <button mat-button (click)="post.loadComments = !post.loadComments" > <mat-icon matTooltip="Load Comments" >{{'comment' | translate}}</mat-icon>{{'Load-Comments' | translate}}</button>
+            <button mat-button (click)="likePost(post)" > <p [ngStyle]="{ 'color' : hasLiked(post) ? 'red' : 'black', 'font-size': '30px'}" >&hearts;  {{post.likes.length}}</p></button>
+            <!-- <span style="padding-top: 10px;">{{post.likes.length}} Likes</span> -->
+          </div>
+          <br>
+            <div style="height:200px ;overflow-x: hidden; overflow-y: auto;" *ngIf = "post.loadComments" fxLayout = "column" fxLayoutAlign="space-between none" fxLayoutGap="10px" >
+  
+                <div  fxFlex="80" *ngFor ="let comment of post.comments">
+                  <mat-card style ="width: 100%; ">
+                    <h6><span>{{'Created-By' | translate }}: </span> {{comment.userId}}</h6>
+                    <p style="font-size: large;">{{comment.content}}</p>
+                  </mat-card>
+                </div>
+  
+            </div>
+            <br>
+            <form *ngIf="post.loadComments" style = "width: 100%; position:sticky" [formGroup]="createCommentForm" (ngSubmit)="createComment(post, createCommentForm.value)" (keydown.enter)="$event.preventDefault()">
+              <mat-card >
+                <mat-label>
+                  {{'Create-New-Comment-Here' | translate}}
+                </mat-label>
+                <div fxLayout="row">
+                  <div fxFlex="90">
+                    <mat-form-field style="width: 100%;" appearance="outline">
+                      <mat-label>{{'Comment' | translate}}</mat-label>
+                      <textarea formControlName="commentContent"  autocomplete="content" matInput placeholder="Enter Comment content here"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayout="row">
+                  <div fxFlex="10" fxLayoutAlign="center center">
+                    <button type="submit" mat-button color="dark">{{'Submit' | translate}}</button>
+                  </div>
+                </div>
+              </mat-card>
+            </form>
+  
+        </mat-card>
+      </div>
+      
+    </div>
+  </div>
+
+</div>

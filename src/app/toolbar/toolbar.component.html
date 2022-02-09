@@ -1,0 +1,104 @@
+<mat-toolbar color="dark" fxLayout="row">
+    <div fxFlex="15" fxLayoutAlign="start center" style="margin-left: 50px;">
+        <button mat-button>
+            <span style="font-size: xx-large;" routerLink="/home">UniCourses</span>
+        </button>
+    </div>
+    <div fxFlex="65" fxLayoutAlign="start center">
+        <button mat-button [routerLink]="['/home']">
+            <mat-icon>home</mat-icon>
+            <span>
+                {{'Feed' | translate}}
+            </span>
+        </button>
+        <button mat-button [routerLink]="['/course']">
+            <mat-icon>library_books</mat-icon>
+            <span>
+                {{'Courses' | translate}}
+            </span>
+        </button>
+            <button mat-button [routerLink]="['/friendRequestCenter']">
+                <mat-icon>person_add</mat-icon>
+                <span>
+                    {{'Add-friends' | translate}}
+                </span>
+            </button>
+
+    </div>
+    <div fxFlex="25" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <div>
+            <button mat-icon-button [matMenuTriggerFor] = "notificationsMenu">
+            <mat-icon matBadge="{{nrOfNotifications}}" matBadgeColor="warn">notifications</mat-icon>
+            </button>
+            <mat-menu  #notificationsMenu="matMenu" fxLayout="row" xPosition="before">
+              <div *ngFor="let notification of myNotifications, let i = index"  mat-list-item style="width: 200px;">
+                  <span fxFlex="80" fxLayout="space-around center" matTooltip="Course: {{notification.name}} coming in:{{notification.due}}"
+                      style="overflow: hidden; text-overflow: ellipsis;max-width: 100% ;
+                      align-content: center;justify-content: center;">
+                  {{notification.name}} {{'starting-soon'|translate}}</span>
+                  <!-- <button fxFlex="20" mat-icon-button matTooltip="Accept" (click)="accept(currentUser.id,friendRequest.id)">
+                      <mat-icon style="color: green;">done</mat-icon>
+                  </button> -->
+                  <button fxFlex="20" mat-icon-button matTooltip="Acknowledge" (click)="acknowledgeNotification(notification, i)">
+                      <mat-icon style="color: red;">done</mat-icon>
+                  </button>
+              </div>
+              <mat-divider *ngIf="nrOfNotifications>1"></mat-divider>
+              <div *ngIf="nrOfNotifications==0" mat-list-item style="width: 200px; text-align: center; margin-top: 10px;" disabled>
+                  <span><b>{{'No-new-notifications' | translate}}</b></span>
+              </div>
+          </mat-menu>
+        </div>
+        <div >
+            <button mat-icon-button [matMenuTriggerFor]="friendRequestMenu">
+                <mat-icon matBadge="{{nrOfFriendRequests}}" matBadgeColor="warn">person</mat-icon>
+            </button>
+                <mat-menu  #friendRequestMenu="matMenu" fxLayout="row" xPosition="before">
+                    <div *ngFor="let friendRequest of myFriendRequests, let i = index"  mat-list-item style="width: 250px; max-height:300px; overflow-y: auto;">
+                        <span fxFlex="60" fxLayout="space-around center" matTooltip="{{friendRequest.senderUsername}}"
+                            style="overflow: hidden; text-overflow: ellipsis;max-width: 100% ;
+                            align-content: center;justify-content: center;">
+                            <b>{{friendRequest.senderUsername}}</b>
+                        </span>
+                        <button fxFlex="20" mat-icon-button matTooltip="Accept" (click)="accept(currentUser.id,friendRequest.id,i)">
+                            <mat-icon style="color: green;">done</mat-icon>
+                        </button>
+                        <button fxFlex="20" mat-icon-button matTooltip="Decline" (click)="decline(currentUser.id,friendRequest.id,i)">
+                            <mat-icon style="color: red;">highlight_off</mat-icon>
+                        </button>
+                    </div>
+                    <mat-divider *ngIf="nrOfFriendRequests>1"></mat-divider>
+                    <div *ngIf="nrOfFriendRequests==0" mat-list-item style="width: 200px; text-align: center; margin-top: 10px;" disabled>
+                        <span><b>{{'No-new-friend-requests' | translate}}</b></span>
+                    </div>
+                </mat-menu>
+
+        </div>
+        <div>
+            <button mat-button [matMenuTriggerFor]="menu">
+                <span style="font-size: x-large;">{{username}}</span>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/profile']">
+                    <mat-icon color="dark">account_circle</mat-icon>
+                    <span>{{'Profile' | translate}}</span>
+                </button>
+                <button mat-menu-item [routerLink]="['calendar']">
+                  <mat-icon color ="dark" >calendar_today</mat-icon>
+                  <span>{{'Calendar' | translate}}</span>
+                </button>
+                <mat-divider></mat-divider>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon color="dark">exit_to_app</mat-icon>
+                    <span>{{'Logout' | translate}}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</mat-toolbar>
+<!-- <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+        Sidenav content
+       <button mat-button [routerLink]="['/friendRequestCenter']">Friend request</button>
+    </mat-sidenav>
+</mat-sidenav-container> -->
